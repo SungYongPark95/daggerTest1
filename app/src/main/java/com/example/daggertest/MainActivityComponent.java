@@ -10,12 +10,16 @@ public interface MainActivityComponent {
 
     void inject(MainActivity activity);
 
-    @Subcomponent.Builder
-    interface Builder{
-        Builder setModule(MainActivityModule module);
-        @BindsInstance
-        Builder setActivity(MainActivity activity);
-        MainActivityComponent build();
-    }
+//    @Subcomponent.Builder
+//    interface Builder{
+//        Builder setModule(MainActivityModule module);
+//        @BindsInstance
+//        Builder setActivity(MainActivity activity);
+//        MainActivityComponent build();
+//    }
+//    @Subcomponent.Factory
+//    interface Factory {
+//        MainActivityComponent create(@BindsInstance MainActivity activity, MainActivityModule module);
+//}
 
 }

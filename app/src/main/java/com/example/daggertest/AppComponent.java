@@ -2,20 +2,16 @@ package com.example.daggertest;
 
 import javax.inject.Singleton;
 
-import dagger.BindsInstance;
-import dagger.Component;
 
-@Component(modules = AppModule.class)
+import dagger.Component;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
+
 @Singleton
-public interface AppComponent {
-    MainActivityComponent.Builder mainActivityComponentBuilder();
-    void inject(App app);
+@Component(modules = {AndroidInjectionModule.class,  AppModule.class})
+public interface AppComponent extends AndroidInjector<App> {
 
     @Component.Factory
-    interface Factory {
-        AppComponent create(
-                @BindsInstance App app,
-                AppModule appModule
-        );
+    interface Factory extends AndroidInjector.Factory<App>{
     }
 }

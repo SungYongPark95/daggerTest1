@@ -4,35 +4,69 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class MainActivity extends AppCompatActivity {
-    @Inject
-    SharedPreferences sharedPreferences;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
+
+public class MainActivity extends AppCompatActivity implements HasAndroidInjector {
 
     @Inject
-    String activityName;
-    MainActivityComponent component;
+    DispatchingAndroidInjector<Object> androidInjector;
+
+    @Inject
+    @Named("app")
+    String appString;
+
+    @Inject
+    @Named("activity")
+    String activityString;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+        AndroidInjection.inject(this);
+        Log.e("MainActivity", appString);
+        Log.e("MainActivity", activityString);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        component = ((App)getApplication()).getAppComponent()
-                .mainActivityComponentBuilder()
-                .setModule(new MainActivityModule())
-                .setActivity(this)
-                .build();
-        component.inject(this);
-
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment())
                 .commit();
     }
-
-    public MainActivityComponent getComponent() {
-        return component;
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return androidInjector;
     }
+//    @Inject
+//    SharedPreferences sharedPreferences;
+//
+//    @Inject
+//    String activityName;
+//    MainActivityComponent component;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//
+//        component = ((App)getApplication()).getAppComponent()
+//                .mainActivityComponentBuilder()
+//                .setModule(new MainActivityModule())
+//                .setActivity(this)
+//                .build();
+//        component.inject(this);
+//
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.container, new MainFragment())
+//                .commit();
+//    }
+//
+//    public MainActivityComponent getComponent() {
+//        return component;
+//    }
 }
