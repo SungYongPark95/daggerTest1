@@ -13,11 +13,13 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements HasAndroidInjector {
+//public class MainActivity extends AppCompatActivity implements HasAndroidInjector {
+public class MainActivity extends DaggerAppCompatActivity{
 
-    @Inject
-    DispatchingAndroidInjector<Object> androidInjector;
+//    @Inject
+//    DispatchingAndroidInjector<Object> androidInjector;
 
     @Inject
     @Named("app")
@@ -38,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements HasAndroidInjecto
                 .replace(R.id.container, new MainFragment())
                 .commit();
     }
-    @Override
-    public AndroidInjector<Object> androidInjector() {
-        return androidInjector;
-    }
+//    @Override
+//    public AndroidInjector<Object> androidInjector() {
+//        return androidInjector;
+//    }
 //    @Inject
 //    SharedPreferences sharedPreferences;
 //

@@ -10,10 +10,11 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjector;
+import dagger.android.ContributesAndroidInjector;
 import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
-@Module(subcomponents = MainActivitySubcomponent.class)
+@Module//(subcomponents = MainActivitySubcomponent.class)
 public abstract class AppModule {
 
     @Named("app")
@@ -23,10 +24,14 @@ public abstract class AppModule {
         return "String from AppModule";
     }
 
-    @Binds
-    @IntoMap
-    @ClassKey(MainActivity.class)
-    abstract AndroidInjector.Factory<?> bindAndroidInjectorFactory(MainActivitySubcomponent.Factory factory);
+    @ActivityScope
+    @ContributesAndroidInjector(modules = MainActivityModule.class)
+    abstract MainActivity mainActivity();
+
+//    @Binds
+//    @IntoMap
+//    @ClassKey(MainActivity.class)
+//    abstract AndroidInjector.Factory<?> bindAndroidInjectorFactory(MainActivitySubcomponent.Factory factory);
 
 //    @Provides
 //    @Singleton

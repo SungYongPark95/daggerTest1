@@ -6,10 +6,12 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjector;
+import dagger.android.ContributesAndroidInjector;
 import dagger.multibindings.ClassKey;
 import dagger.multibindings.IntoMap;
 
-@Module(subcomponents = MainFragmentSubcomponent.class)
+//@Module(subcomponents = MainFragmentSubcomponent.class)
+@Module
 public abstract class MainActivityModule {
 
 //    @Provides
@@ -24,8 +26,11 @@ public abstract class MainActivityModule {
         return "String from MainActivityModule";
     }
 
-    @Binds
-    @IntoMap
-    @ClassKey(MainFragment.class)
-    abstract AndroidInjector.Factory<?> bindInjectorFactory(MainFragmentSubcomponent.Factory factory);
+//    @Binds
+//    @IntoMap
+//    @ClassKey(MainFragment.class)
+//    abstract AndroidInjector.Factory<?> bindInjectorFactory(MainFragmentSubcomponent.Factory factory);
+    @FragmentScope
+    @ContributesAndroidInjector(modules = MainFragmentModule.class)
+    abstract MainFragment mainFragment();
 }
